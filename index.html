@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./src/scss/output.css">
+</head>
+
+<body>
+  <div id="main-app">
+    <header class="header">
+      <div class="container">
+        <label class="navbar-toggle-label" for="navbar-toggle">
+          <img src="./src/img/Vector.png" alt="">
+        </label>
+        <input type="checkbox" class="navbar-toggle" id="navbar-toggle" />
+        <a href="" class="navbar-brand logo">
+          <img src="./src/img/Logo(b).png" alt="">
+        </a>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li class="nav-item my-7">
+              <a href="" class="nav-link">男款</a>
+            </li>
+            <li class="nav-item my-7">
+              <a href="" class="nav-link">女款</a>
+            </li>
+            <li class="nav-item my-7">
+              <a href="" class="nav-link">最新消息</a>
+            </li>
+            <li class="nav-item my-7">
+              <a href="" class="nav-link">聯絡我們</a>
+            </li>
+            <li class="nav-item my-7">
+              <a href="" class="nav-link">客製商品</a>
+            </li>
+            <li class="nav-item my-7 nav-icons d-flex justify-content-center">
+              <a href="" class="nav-link search-icon">
+                <img src="./src/img/search(l).png" alt="">
+              </a>
+              <a href="" class="nav-link cart-icon">
+                <img src="./src/img/shop(l).png" alt="">
+              </a>
+              <div class="darkmode" id="dark__mode__toggle">
+                <img class='lightmode' src="./src/img/moon.png" alt="">
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="h1-container">
+        <h1>結帳</h1>
+      </div>
+      <div class="container">
+        <div class="checkout-panel">
+          <div id="stepper-control" class="stepper-panel">
+            <div class="stepper-container">
+              <div class="step step-one active">
+                <div class="circle-container"></div>
+                <div class="label-container">寄送地址</div>
+              </div>
+              <div class="step">
+                <div class="circle-container"></div>
+                <div class="label-container">運送方式</div>
+                <div class="connect-line"></div>
+              </div>
+              <div class="step">
+                <div class="circle-container"></div>
+                <div class="label-container">付款資訊</div>
+                <div class="connect-line"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-content">
+            <div class="part part-one">
+              <h2>寄送地址</h2>
+              <div class="form-row title-name d-flex justify-content-between mt-4">
+                <div class="select-wrapper d-flex flex-column">
+                  <label>稱謂</label>
+                  <select class="title" name="a-type" id="a-type" required>
+                    <option value="" disabled selected>稱謂</option>
+                    <option value="male">先生</option>
+                    <option value="femail">小姐</option>
+                  </select>
+                </div>
+                <div class="name-wrapper d-flex flex-column">
+                  <label for="">姓名</label>
+                  <input class="name" id="name" type="text" placeholder="請輸入姓名">
+                </div>
+              </div>
+              <div class="form-row telephone-email ">
+                <div class="telephone d-flex flex-column mt-4">
+                  <label for="">電話</label>
+                  <input id="phone" type="text" placeholder="請輸入行動電話">
+                </div>
+                <div class="email d-flex flex-column mt-3">
+                  <label for="">Email</label>
+                  <input id="email" type="text" placeholder="請輸入電子郵件">
+                </div>
+              </div>
+              <div class="form-row city-address">
+                <div class="city-wrapper d-flex flex-column mt-4">
+                  <label for="">縣市</label>
+                  <input id="city" type="text" placeholder="請輸入縣市">
+                </div>
+                <div class="address d-flex flex-column mt-3">
+                  <label for="">地址</label>
+                  <input id="address" type="text" placeholder="請輸入地址">
+                </div>
+              </div>
+            </div>
+            <div class="part part-two d-none">
+              <h2>運送方式</h2>
+              <div class="transport-method mt-4">
+                <input name="transport" type="radio" value="regular" class='transport'>
+                <label for="regular" class="transport-detail">
+                  <p class="transport-way">標準運送<br><span>約3~7個工作天</span></p>
+                  <p class="transport-price">免費</p>
+                </label>
+              </div>
+              <div class="transport-method dhl mt-4">
+                <input name="transport" type="radio" value="dhl" class='transport'>
+                <label for="" class="transport-detail">
+                  <p class="transport-way">DHL貨運<br><span>48小時內送達</span></p>
+                  <p class="transport-price">$500</p>
+                </label>
+              </div>
+            </div>
+            <div class="part part-three d-none">
+              <h2>付款資訊</h2>
+              <div class="form-row d-flex flex-column mt-4">
+                <label for="">持卡人姓名</label>
+                <input id="card-name" type="text" placeholder="請輸入持卡人姓名">
+              </div>
+              <div class="form-row d-flex flex-column">
+                <label for="">卡號</label>
+                <input id="card" type="text" placeholder="1111 2222 3333 4444">
+              </div>
+              <div class="form-row d-flex flex-row justify-content-between">
+                <div class="validity-container d-flex flex-column ">
+                  <label for="">有效期限</label>
+                  <input id="validity" type="text" placeholder="MM/YY">
+                </div>
+                <div class="cvc-container d-flex flex-column align-items-end">
+                  <label for="">CVC/CCV</label>
+                  <input id="cvc" type="text" placeholder="123">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="cart-panel">
+          <h3 class="cart-title">購物籃</h3>
+          <div class="product-panel">
+            <!-- insert from js -->
+            <!-- <div class="product d-flex justify-content-between">
+              <img class="product-photo" src="${product.img}" alt="">
+              <div class="product-info w-40 d-flex flex-column align-items-end justify-content-between">
+                <div class="name">${product.name}</div>
+                <div class="count">
+                  <span class='d-none'> ${product.id} </span>
+                  <img class='minus' src="./src/img/minus.png" alt="">
+                  <span>${product.quantity}</span>
+                  <img class='plus' src="./src/img/plus.png" alt="">
+                </div>
+                <div class="price"><span>${(product.price * product.quantity).toLocaleString('zh-TW', { maximumFractionDigits: 0,
+                    style: 'currency', currency: 'TWD' })}</span></div>
+              </div>
+            </div> -->
+          </div>
+          <div class="shipping d-flex justify-content-between">
+            <span class="shipping-name">運費</span>
+            <span class="shipping-total">免費</span>
+          </div>
+          <div class="amount d-flex justify-content-between">
+            <span class="amount-name">小計</span>
+            <span class="amount-total">$5,998</span>
+          </div>
+        </div>
+        <hr class='hr'>
+        <div class="control-panel">
+          <button class="btn last-step">← 上一步</button>
+          <button class="btn first-next-step next-step">下一步 →</button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer-container">
+      <div class="footer-info d-flex justify-content-between">
+      <div class="footer-logo">
+        <a href="" class="navbar-brand logo">
+          <img src="./src/img/Logo(b).png" alt="">
+        </a>
+      </div>
+      <div class="service">
+        <h2>客戶服務</h2>
+        <ul>
+          <li><span>運送説明</span></li>
+          <li><span>退換貨相關</span></li>
+          <li><span>付款資訊</span></li>
+          <li><span>FAQ</span></li>
+        </ul>
+      </div>
+      <div class="about">
+        <h2>關於我們</h2>
+        <ul>
+          <li><span>品牌故事</span></li>
+          <li><span>媒體聯繫</span></li>
+          <li><span>Press kit</span></li>
+        </ul>
+      </div>
+      <div class="term">
+        <h2>資訊</h2>
+        <ul>
+          <li><span>隱私權政策</span></li>
+          <li><span>Cookie</span></li>
+          <li><span>GDPR</span></li>
+        </ul>
+      </div>
+      <div class="follow-us">
+        <h2>追蹤ALPHA Shop</h2>
+        <ul>
+          <li><span>+886 02123-45678</span></li>
+        </ul>
+        <div class="footer-icons">
+          <img src="./src/img/fb(l).png" alt="">
+          <img src="./src/img/ig(l).png" alt="">
+          <img src="./src/img/phone(l).png" alt="">
+        </div>
+      </div>
+    </div>
+    </footer>
+  </div>
+  <script src='./src/main.js'></script>
+</body>
+
+</html>
