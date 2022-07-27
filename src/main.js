@@ -2,7 +2,7 @@
 // console.log('JS loaded!')
 
 const productPanel = document.querySelector('.product-panel')
-const stepControl = document.getElementById('step-control')
+const stepControl = document.getElementById('stepper-control')
 const btnControl = document.querySelector('.control-panel')
 const steps = stepControl.querySelectorAll('.step')
 const formParts = document.querySelectorAll('.part')
@@ -14,6 +14,9 @@ const logo = document.querySelectorAll('.logo')
 const searchIcon = document.querySelector('.search-icon')
 const cartIcon = document.querySelector('.cart-icon')
 const shippingTotal = document.querySelector('.shipping-total')
+const cartFare = document.querySelector('.transport-price')
+
+let transportFee = 0
 
 
 
@@ -34,7 +37,6 @@ const products = [
   }
 ]
 
-let transportFee = 0
 
 const displayProduct = () => {
   products.forEach((product) => {
@@ -44,10 +46,11 @@ const displayProduct = () => {
         <div class="product-info w-40 d-flex flex-column align-items-end justify-content-between">
           <div class="name">${product.name}</div>
           <div class="count">
-            <span class='d-none'> ${product.id} </span>
-            <img class='minus' src="./src/img/minus.png" alt="">
-            <span>${product.quantity}</span>
-            <img class='plus' src="./src/img/plus.png" alt="">
+            <img class='minus' data-id="${product.id
+        }" src="./src/img/minus.png" alt="">
+            <span class="quantity-box">${product.quantity}</span>
+            <img class='plus' data-id="${product.id
+        }" src="./src/img/plus.png" alt="">
           </div>
           <div class="price"><span>${(product.price * product.quantity).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })}</span></div>
         </div>
@@ -70,7 +73,7 @@ function handleBtnControlClicked(e) {
     nowStep.classList.remove('active')
     nowStep.classList.add('checked')
     nextStep.classList.add('active')
-    
+
     formParts[step].classList.toggle('d-none')
     formParts[step + 1].classList.toggle('d-none')
     step += 1
@@ -90,11 +93,11 @@ function handleBtnControlClicked(e) {
 
 function setBtnDisabled() {
   if (step === 0) {
-    prevBtn.classList.add('d-none')
+    prevBtn.classList.add('first-last-step')
     nextBtn.classList.add('first-next-step')
   } else {
     nextBtn.classList.remove('first-next-step')
-    prevBtn.classList.remove('d-none')
+    prevBtn.classList.remove('first-last-step')
   }
 
   if (step === 2) {
@@ -104,31 +107,90 @@ function setBtnDisabled() {
   }
 }
 
-const controlQuantity = e => {
-  let target = e.target
-  if (target.classList.contains('plus')) {
-    const productID = target.parentElement.children[0].innerHTML
-    console.log(`plus product id : ${productID}`)
-    const isID = (product) => Number(product.id) === Number(productID)
-    const productIndex = products.findIndex(isID)
-    console.log(`productIndex ${productIndex}`)
+// 處理購買數量增減及分項金額變化
+function onQuantityBtnClicked(event) {
+  const productId = Number(event.target.dataset.id)
+  const isID = (product) => Number(product.id) === Number(productId)
+  const productIndex = products.findIndex(isID)
+  
+
+  console.log(productId)
+  console.log(productIndex)
+  console.log(isID)
+  console.log(event.target.dataset)
+ 
+
+  if (
+    event.target.className !== "plus" &&
+    event.target.className !== "minus"
+  ) {
+    return
+  }
+
+  if (event.target.className === "plus") {
+    // qua += 1
+    // console.log(qua)
+    // quantityBox.innerText = qua
+    // console.log(quantityBox.innerText)
     products[productIndex].quantity = Number(products[productIndex].quantity) + 1
-    target.nextElementSibling.innerHTML = products[productIndex].quantity
-    target.parentElement.nextElementSibling.children[0].innerHTML = (products[productIndex].quantity * products[productIndex].price).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
-  } else if (target.classList.contains('minus')) {
-    const productID = target.parentElement.children[0].innerHTML
-    console.log(`minus product id : ${productID}`)
-    const isID = (product) => Number(product.id) === Number(productID)
-    const productIndex = products.findIndex(isID)
-    console.log(`productIndex ${productIndex}`)
+    event.target.previousElementSibling.innerHTML = products[productIndex].quantity
+    console.log(products[productIndex].quantity)
+    
+  } else if (event.target.className === "minus") {
+    // if (qua <= 0) {
+    //   return
+    // }
+    // qua -= 1
+    // console.log(qua)
+    // quantityBox.innerText = qua
     if (products[productIndex].quantity > 0) {
       products[productIndex].quantity = Number(products[productIndex].quantity) - 1
     } else {
       products[productIndex].quantity = 0
     }
-    target.previousElementSibling.innerHTML = products[productIndex].quantity
-    target.parentElement.nextElementSibling.children[0].innerHTML = (products[productIndex].quantity * products[productIndex].price).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
+    event.target.nextElementSibling.innerHTML = products[productIndex].quantity
   }
+  // products.forEach(product =>
+  //   money = money + product.price * product.quantity
+  // )
+
+  // amountTotal.innerHTML = money.toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
+  priceTotal()
+}
+
+//運費
+const focus = document.querySelectorAll('input[name="transport"]')
+
+console.log(focus)
+dhlOrNot = false
+
+focus[0].addEventListener('click', function () {
+  focus[0].parentElement.classList.add('selected')
+  focus[1].parentElement.classList.remove('selected')
+  removeDhl()
+})
+
+focus[1].addEventListener('click', function () {
+  focus[0].parentElement.classList.remove('selected')
+  focus[1].parentElement.classList.add('selected')
+  dhlOrNot = true
+  addDhl()
+
+})
+
+const addDhl = () => {
+  transportFee = 500  
+  shippingTotal.innerHTML = (500).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
+  priceTotal()
+}
+
+const removeDhl = () => {
+  transportFee = 0
+  shippingTotal.innerHTML = '免費'
+  priceTotal()
+}
+
+const priceTotal = () => {
   let money = 0
   products.forEach(product =>
     money = money + product.price * product.quantity
@@ -137,54 +199,7 @@ const controlQuantity = e => {
 }
 
 btnControl.addEventListener('click', handleBtnControlClicked)
-cart.addEventListener('click', controlQuantity)
-
-
-// control outline of the transport method part
-const focus = document.querySelectorAll('input[name="transport"]')
-
-console.log(focus)
-
-focus[0].addEventListener('click', function () {
-  dhlOrNot = false
-  focus[0].parentElement.classList.add('selected')
-  focus[1].parentElement.classList.remove('selected')
-  dhlOrNot = false
-  console.log('remove dhl')
-  removeDhl()
-})
-
-focus[1].addEventListener('click', function () {
-  dhlOrNot = true
-
-  focus[0].parentElement.classList.remove('selected')
-  focus[1].parentElement.classList.add('selected')
-  dhlOrNot = true
-  console.log('add dhl')
-  addDhl()
-
-})
-
-// transport fee
-const addDhl = () => {
-  let money = 0
-  transportFee = 500
-  products.forEach(product =>
-    money = money + product.price * product.quantity
-  )
-  amountTotal.innerHTML = (money + transportFee).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
-  shippingTotal.innerHTML = (500).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
-}
-
-const removeDhl = () => {
-  let money = 0
-  transportFee = 0
-  products.forEach(product =>
-    money = money + product.price * product.quantity
-  )
-  shippingTotal.innerHTML = '免費'
-  amountTotal.innerHTML = (money + transportFee).toLocaleString('zh-TW', { maximumFractionDigits: 0, style: 'currency', currency: 'TWD' })
-}
+cart.addEventListener('click', onQuantityBtnClicked)
 
 
 // dark mode

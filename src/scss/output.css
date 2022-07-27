@@ -1074,6 +1074,9 @@ main .form-content .part-two .transport-method input[type=radio]:checked {
 main .form-content .part-two .transport-method:checked, main .form-content .part-two .transport-method:hover {
   border: 1px solid black;
 }
+main .form-content .part-two .transport-method.selected {
+  border: 1px solid black;
+}
 main .form-content .part-three .form-row label {
   font-weight: 500;
   color: #808080;
@@ -1140,6 +1143,7 @@ main .hr {
   border-top: 1px solid #f0f0f5;
 }
 main .control-panel {
+  border: 1px solid red;
   display: flex;
   justify-content: space-between;
 }
@@ -1147,9 +1151,13 @@ main .control-panel .btn {
   width: 146px;
   height: 46px;
   border-radius: 8px;
+  border: 1px solid red;
+}
+main .control-panel .btn.first-next-step {
+  width: 100%;
 }
 main .control-panel .btn.first-last-step {
-  display: none;
+  visibility: hidden;
 }
 main .control-panel .btn.next-step {
   background-color: #f67599;
@@ -1287,7 +1295,7 @@ main .container .form-content .part-one .email {
   footer {
     height: 284px;
     display: block;
-    background: #F6F7F8;
+    background: #f6f7f8;
     padding-top: 46px;
   }
   footer .footer-info {
@@ -1328,18 +1336,29 @@ main .container .form-content .part-one .email {
 [data-theme=dark] main {
   background: black;
 }
-[data-theme=dark] main h1, [data-theme=dark] main h2, [data-theme=dark] main h3, [data-theme=dark] main span, [data-theme=dark] main .last-step, [data-theme=dark] main div {
+[data-theme=dark] main h1,
+[data-theme=dark] main h2,
+[data-theme=dark] main h3,
+[data-theme=dark] main span,
+[data-theme=dark] main .last-step,
+[data-theme=dark] main div {
   color: white;
 }
-[data-theme=dark] main .form-content .part input, [data-theme=dark] main .form-content .part-one select, [data-theme=dark] main .upper-content .form-content .part-two .transport-method {
+[data-theme=dark] main .form-content .part input,
+[data-theme=dark] main .form-content .part-one select,
+[data-theme=dark] main .upper-content .form-content .part-two .transport-method {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: black;
   color: white;
 }
-[data-theme=dark] main .form-content .part input.selected, [data-theme=dark] main .form-content .part-one select.selected, [data-theme=dark] main .upper-content .form-content .part-two .transport-method.selected {
+[data-theme=dark] main .form-content .part input.selected,
+[data-theme=dark] main .form-content .part-one select.selected,
+[data-theme=dark] main .upper-content .form-content .part-two .transport-method.selected {
   border: 2px solid white;
 }
-[data-theme=dark] main .form-content .part input input[type=radio]:checked, [data-theme=dark] main .form-content .part-one select input[type=radio]:checked, [data-theme=dark] main .upper-content .form-content .part-two .transport-method input[type=radio]:checked {
+[data-theme=dark] main .form-content .part input input[type=radio]:checked,
+[data-theme=dark] main .form-content .part-one select input[type=radio]:checked,
+[data-theme=dark] main .upper-content .form-content .part-two .transport-method input[type=radio]:checked {
   box-shadow: inset 0 0 0 5px white;
 }
 [data-theme=dark] main .cart-panel {
